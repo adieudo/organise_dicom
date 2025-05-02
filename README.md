@@ -5,7 +5,7 @@ Date : 02/05/2025
 Version : 1.0
 
 Usage :
-    python organise_dicom.py -i <input_folder> -s <sensitivity> -n <number_of_detectors> -a <activity> -d <injection_date> [-sim]
+    python organise_dicom.py -i <input_folder>
 
 Arguments :
     -i : Directory containing the NM DICOM files to process (required).
