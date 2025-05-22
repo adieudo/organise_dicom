@@ -1,5 +1,5 @@
 Script : organize_dicom.py
-Description : Organize DICOM files into folders based on patient name, study date, and modality.
+Description : Organize DICOM files into folders based on patient name, study date (relative to radiopharmaceutical start date), and modality. For NM & PT studies.
 Author : Arnaud Dieudonné
 Date : 02/05/2025
 Version : 1.0
