@@ -1,9 +1,9 @@
 """
 Script : organize_dicom.py
-Description : Organize DICOM files into folders based on patient name, series date, and modality.
+Description : Organize DICOM files into folders based on patient name, acquisition date, and modality.
 Author : Arnaud Dieudonné
 Date : 04/06/2025
-Version : 1.1
+Version : 1.11
 
 Usage :
     python organise_dicom.py -i <input_folder>
@@ -39,10 +39,10 @@ def organize_dicoms_by_patient(folder_path,simulation_mode):
                 try:
                     dicom_data = pydicom.dcmread(file_path)
                     PatientName = str(dicom_data.PatientName).replace("^", "_")
-                    SeriesDate= str(dicom_data.get("SeriesDate"))
-                    print(SeriesDate)
+                    AcquisitionDate= str(dicom_data.get("AcquisitionDate"))
+                    print(AcquisitionDate)
                     modality = str(dicom_data.Modality)
-                    series_folder = os.path.join(folder_path, PatientName,SeriesDate,modality)
+                    series_folder = os.path.join(folder_path, PatientName,AcquisitionDate,modality)
                     if not simulation_mode:
                         os.makedirs(series_folder, exist_ok=True)
                         move(file_path, os.path.join(series_folder, file))
@@ -57,11 +57,11 @@ def organize_dicoms_by_patient(folder_path,simulation_mode):
                 try:
                     dicom_data = pydicom.dcmread(file_path)
                     PatientName = str(dicom_data.PatientName).replace("^", "_")
-                    SeriesDate= str(dicom_data.get("SeriesDate"))
+                    AcquisitionDate= str(dicom_data.get("AcquisitionDate"))
                     modality = str(dicom_data.Modality)
                     if modality=="NM":
                         injection_date_time = datetime.datetime.strptime(dicom_data.RadiopharmaceuticalInformationSequence[0].RadiopharmaceuticalStartDateTime.split('.')[0],'%Y%m%d%H%M%S')
-                        scan_date_time = datetime.datetime.strptime(dicom_data.AcquisitionDate + dicom_data.AcquisitionTime.split('.')[0],'%Y%m%d%H%M%S')
+                        scan_date_time = datetime.datetime.strptime(AcquisitionDate + dicom_data.AcquisitionTime.split('.')[0],'%Y%m%d%H%M%S')
                         DelayInDays = round((scan_date_time - injection_date_time).total_seconds() / 3600 / 24,0)
                         parent_folder = os.path.dirname(os.path.dirname(file_path))
                         patient_folder = os.path.dirname(parent_folder)
