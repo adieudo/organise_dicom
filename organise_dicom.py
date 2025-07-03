@@ -12,9 +12,11 @@ Usage :
 
 Arguments :
     -i : Directory containing the NM DICOM files to process (required).
+    -sim : Simulate, do not reorganise DICOM files.
+    -fname : DICOM tag to use to name study folder (date, study or accession)
 
 Example :
-    python orgnize_dicom.py -i ./dicom_files
+    python organise_dicom.py -i ./dicom_files
 """
 
 import os
